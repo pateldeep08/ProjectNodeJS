@@ -2,9 +2,11 @@ import express from 'express'
 
 const app = express(); 
 
-app.get('/', (req:any, res:any)=>{
-    res.send('Hdello')
-})
+// Routes 
+app.use('/', require('./Routes/index'))
+app.use('/users', require('./Routes/users'))
+//app.use('/register', require('./Routes/users'))
+
 
 app.listen(8080, ()=>console.log("Server Running"))
 
