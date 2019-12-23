@@ -1,5 +1,6 @@
 import express from 'express'
 import passport from 'passport'
+import { Request } from "express"
 
 
 const router: express.Router = express.Router();
@@ -78,6 +79,12 @@ router.post('/login', (req,res,next)=>{
         failureRedirect : '/users/login',
         failureFlash : true 
     })(req,res,next); 
+})
+
+//Logout handle 
+router.get('/logout',(req,res)=>{
+    //req.logout(); 
+    res.redirect('/users/login')
 })
 
 module.exports = router;

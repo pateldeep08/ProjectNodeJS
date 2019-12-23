@@ -27,3 +27,9 @@
       </button>
     </div>
     <% } %>
+
+   <% if(locals.flash && locals.flash.error){ %>
+      <div class="ui negative message" >
+        <%= flash.error %>
+      </div>
+      <% } %>
