@@ -1,4 +1,5 @@
 import express from 'express'
+import passport from 'passport'
 
 
 const router: express.Router = express.Router();
@@ -46,27 +47,10 @@ router.post('/register',(req:any, res:any)=>{
         res.render('register', { errors, name, password, email})
     } else {
         //validation pass
-       /* User.findOne({email:email})
-            .then(user =>{
-                if(user){
-                    //User Exist 
-                    errors.push(msg3)
-                    res.render('register', { errors, name, password, email})
-                } else {
-                    const newUser = new User({
-                        name,
-                        email,
-                        password
-                    })
 
-                    //need to save the user now on the db 
-
-    */
         User.findOne({ email: email }, (err, user) => {
-            //if (err) { return done(err); }
+        
             if (user) {
-                //req.flash("errors", { msg: "There is already an account using this email address." });
-                //done(err);
                 res.render('register', { errors, name, password, email})
             } else {
                 const user: any = new User({
@@ -76,11 +60,9 @@ router.post('/register',(req:any, res:any)=>{
                 });
               
                 user.save((err: Error) => {
-                   // done(err, user);
-        
-
                     console.log(user)
-                    res.render('login')
+                    req.flash('success_msg','You are now registered and can log in')
+                    res.redirect('login')
                 })
             }
         
@@ -89,5 +71,13 @@ router.post('/register',(req:any, res:any)=>{
 
 })
 
+//Login handling
+router.post('/login', (req,res,next)=>{
+    passport.authenticate('local',{
+        successRedirect : '/dashboard',
+        failureRedirect : '/users/login',
+        failureFlash : true 
+    })(req,res,next); 
+})
 
 module.exports = router;
