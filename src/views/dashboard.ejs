@@ -6,9 +6,6 @@
 <div class="row mt-3">
     <div class="col-md-6 m-auto">
       <div class="card card-body">
-      
- 
-     
         <form action="/dashboard" method="POST">
           <div class="form-group">
             <label for="message">Date</label>
@@ -32,7 +29,38 @@
           </div>
           <button type="submit" class="btn btn-primary btn-block">Add Metric</button>
         </form>
-
       </div>
+    </div>  
+</div>
+
+<div class="get">
+    <h1>Get data</h1>
+
+    
+        <table class="table">
+            <thead>
+            <tr>
+                
+                <th scope="col">Date</th>
+                <th scope="col">Number</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% table.forEach(function(item){ %>
+            <tr>
+                
+                <td><%= item.date%></td>
+                <td><%= item.number%></td>
+            </tr>
+            
+            <% }) %>
+            </tbody>
+        </table>
+        
+     
+
     </div>
-  </div>
+
+    <p class="lead mb-3">Welcome <%=table[0]%></p>
+
+</div>

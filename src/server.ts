@@ -22,7 +22,7 @@ mongoose.connect(url, (err:any)=>{
     }
 })
 //DB
-import Metric from './models/Metric';
+import Metric from './models/metric';
 // EJS
 app.use(expressLayouts);
 app.set("views", __dirname + "/views");
@@ -77,12 +77,11 @@ app.post('/dashboard', (req : any, res :any)=>{
         });
       
         metric.save((err: Error) => {
-            console.log(metric)
+            //console.log(metric)
             req.flash('success_msg','You are now registered and can log in')
-            res.redirect('login')
+            res.redirect('/dashboard')
         })
     }
-
     
 })
 
