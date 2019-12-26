@@ -1,0 +1,13 @@
+FROM node:'9'
+
+WORKDIR /app
+
+COPY package.json /app
+
+RUN npm install 
+
+COPY package.json /app
+
+EXPOSE 3000
+
+CMD ["npm", "start"]

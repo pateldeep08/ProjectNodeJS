@@ -27,7 +27,7 @@
               placeholder=""
             />
           </div>
-          <button type="submit" class="btn btn-primary btn-block">Add Metric</button>
+          <button type="submit" class="btn btn-primary btn-block" onclick="adddata()" >Add Metric</button>
         </form>
       </div>
     </div>  
@@ -51,6 +51,8 @@
                 
                 <td><%= item.date%></td>
                 <td><%= item.number%></td>
+                <td>
+                  <button type="submit" class="btn btn-primary btn-block">Delete</button></td>
             </tr>
             
             <% }) %>
@@ -61,6 +63,69 @@
 
     </div>
 
-    <p class="lead mb-3">Welcome <%=table[0]%></p>
+    
+
+    <p class="lead mb-2">Chart</p>
+    <div> 
+    
+            <canvas id="myChart"></canvas>
+            
+     
+       
+    </div>
+   
 
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script src="path/to/chartjs/dist/Chart.js"></script>
+<script>
+
+    var data1 = <%- JSON.stringify(table) %>;
+    //var final = JSON.parse(data1);
+    var listDate=[];
+    var listNumber=[];
+
+    for(var i=0; i < data1.length; i++){
+      var date = new Date(data1[i].date);
+      var day = date.getDate();
+      var month = date.getMonth();
+      var year =  date.getFullYear();
+      var stringDate = year +"-"+month +"-"+day
+      listDate.push(stringDate)
+      listNumber.push(parseInt(data1[i].number))
+    }
+    console.log(listDate);
+    console.log(listNumber);
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var chart = new Chart(ctx, {
+      // The type of chart we want to create
+      type: 'line',
+
+      // The data for our dataset
+      data: {
+        labels: listDate,
+        datasets: [{
+            label: 'My First dataset',
+            backgroundColor: 'rgb(235, 104, 100)',
+            borderColor: 'rgb(235, 104, 100)',
+            data: listNumber
+        }]
+      },
+
+      // Configuration options go here
+      options: {}
+    });
+
+   
+  
+     
+    function adddata(){
+      chart.data.datasets[0].data.push(500)
+      chart.data.labels.push("mois")
+      chart.update(); 
+    }
+    
+    
+</script>
