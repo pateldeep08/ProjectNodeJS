@@ -13,6 +13,9 @@
 ### Developpment 
 >npm run dev 
 
+### Docker 
+>docker-compose up 
+
 ## Application acces 
 In the nagivator : >http://localhost:3000/
 
